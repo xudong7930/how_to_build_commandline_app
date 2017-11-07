@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+
+<?php
+require 'vendor/autoload.php';
+
+use Acme\SayHello;
+use Symfony\Component\Console\Application;
+
+$app = new Application('sayhello', '1.0');
+$app->add(new SayHello);
+$app->run();

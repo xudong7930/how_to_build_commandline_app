@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Acme\\": "src"
+        }
+    },
+    "require": {
+        "symfony/console": "^3.3",
+        "GuzzleHttp/guzzle": "^6.3"
+    }
+}

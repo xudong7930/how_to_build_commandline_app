@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+require 'vendor/autoload.php';
+
+use Acme\DatabaseAdapter;
+use Acme\RenderCommand;
+use Acme\RenderTask;
+use Acme\TaskAdd;
+use Acme\TaskComplete;
+use Symfony\Component\Console\Application;
+
+$app = new Application('laracast', '1.0');
+
+// example 1
+$app->add(new RenderCommand);
+
+// example 2
+try {
+    $pdo = new PDO('sqlite:db.sqlite');
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (Exception $e) {
+    echo $e->getMessage();
+    exit(1);
+}
+$adapter = new DatabaseAdapter($pdo);
+$app->add(new RenderTask($adapter));
+
+// example 3
+$app->add(new TaskAdd($adapter));
+
+// example 4
+$app->add(new TaskComplete($adapter));
+
+$app->run();
